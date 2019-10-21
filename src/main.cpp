@@ -20,6 +20,6 @@ int main()
 	std::vector<IOperand> vec;
 
 
-	vec.pop_back();
+	//vec.pop_back();
 	return (0);
 }
