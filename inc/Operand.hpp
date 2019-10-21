@@ -1,71 +1,79 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Operand.Class.hpp                                  :+:      :+:    :+:   */
+/*   Operand.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:09:38 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/17 16:47:36 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/21 19:52:01 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "IOperand.hpp"
 
-template<typename T>
+template <typename T>
 class Operand : public IOperand
 {
 private:
 	T _value;
+	eOperandType _type;
+	int _precision;
+
 public:
-	Operand(T arg)
+	Operand()
 	{
-
+		return;
 	}
 
-	Operand operator=(Operand const &obj)
+	Operand(std::string arg, eOperandType type, int precision) : _type(type),
+																 _precision(precision)
 	{
-
+		return;
 	}
 
-	Operand(Operand const &)
+	eOperandType getType(void) const
 	{
-
+		return this->_type;
 	}
 
 	~Operand()
 	{
-		return ;
+		return;
 	}
 
 	int getPrecision(void) const
 	{
-
+		return (this->_type);
 	}
 
 	std::string const &toString(void) const
 	{
-
+		return (0);
 	}
+
 	IOperand const *operator+(IOperand const &rhs) const
 	{
-
+		return (0);
 	}
+
 	IOperand const *operator-(IOperand const &rhs) const
 	{
-
+		return (0);
 	}
+
 	IOperand const *operator*(IOperand const &rhs) const
 	{
-
+		return (0);
 	}
+
 	IOperand const *operator/(IOperand const &rhs) const
 	{
-
+		return (0);
 	}
+
 	IOperand const *operator%(IOperand const &rhs) const
 	{
-
+		return (0);
 	}
 };
-
