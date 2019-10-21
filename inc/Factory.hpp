@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:48:03 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/21 20:00:04 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/21 20:05:07 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 #include <iostream>
 #include "IOperand.hpp"
 
-typedef IOperand const* (*f)(std::string);
-
 class Factory
 {
 private:
-	f func[5];
 	IOperand const *createInt8(std::string const &value) const;
 	IOperand const *createInt16(std::string const &value) const;
 	IOperand const *createInt32(std::string const &value) const;
