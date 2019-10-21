@@ -6,18 +6,19 @@
 #    By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 10:49:31 by yalytvyn          #+#    #+#              #
-#    Updated: 2019/10/17 16:44:48 by yalytvyn         ###   ########.fr        #
+#    Updated: 2019/10/21 19:01:50 by yalytvyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= avm
 
 SRC		=   src/main.cpp \
-			src/Operand.Class.cpp \
+			src/Operand.cpp \
+			src/Factory.cpp
 
 OBJ		= $(patsubst src/%.cpp,obj/%.o,$(SRC))
 
-FLAG	= -Wall -Wextra #-Werror 
+FLAG	= -Wall -Wextra -Wunused-parameter#-Werror
 
 INC		= -Iinc
 
