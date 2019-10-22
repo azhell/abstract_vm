@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//
+//			COPLIEN
+//
+
 #include "Factory.hpp"
 #include "IOperand.hpp"
 #include "Operand.hpp"
@@ -19,17 +23,25 @@
 
 int main()
 {
-	std::vector<IOperand const*> vec;
+	std::vector<IOperand const *> vec;
 	Factory factory;
 	IOperand const *ed;
 
-
-	IOperand const *test = factory.createOperand(Int8, "22");
-	IOperand const *test2 = factory.createOperand(Int8, "2222");
-	vec.push_back(test);
-	vec.push_back(test2);
-	ed = *(vec.rend());
-
+	{
+		IOperand const *test = factory.createOperand(Int8, "22");
+		IOperand const *test2 = factory.createOperand(Int16, "140");
+		vec.push_back(test);
+		vec.push_back(test2);
+		IOperand const *test3 = *test + *test2;
+		vec.pop_back();
+		vec.pop_back();
+		vec.push_back(test3);
+	}
+	for (std::vector<IOperand const*>::reverse_iterator i = vec.rbegin(); i != vec.rend(); ++i)
+	{
+		ed = *i;
+		std::cout << ed->toString() << std::endl;
+	}
 
 	system("leaks avm");
 	return (0);

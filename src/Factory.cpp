@@ -38,30 +38,30 @@ IOperand const *Factory::createOperand(eOperandType type, std::string const &val
 
 IOperand const *Factory::createInt8(std::string const &value) const
 {
-	IOperand const *ret = new Operand<int8_t>(value, Int8, 0);
+	IOperand const *ret = new Operand<int8_t>(value, Int8, 0, this);
 	return (ret);
 }
 
 IOperand const *Factory::createInt16(std::string const &value) const
 {
-	IOperand const *ret = new Operand<int16_t>(value, Int16, 0);
+	IOperand const *ret = new Operand<int16_t>(value, Int16, 0, this);
 	return (ret);
 }
 
 IOperand const *Factory::createInt32(std::string const &value) const
 {
-	IOperand const *ret = new Operand<int32_t>(value, Int32, 0);
+	IOperand const *ret = new Operand<int32_t>(value, Int32, 0, this);
 	return (ret);
 }
 
 IOperand const *Factory::createFloat(std::string const &value) const
 {
-	IOperand const *ret = new Operand<float>(value, Float, 7);
+	IOperand const *ret = new Operand<float>(value, Float, 7, this);
 	return (ret);
 }
 
 IOperand const *Factory::createDouble(std::string const &value) const
 {
-	IOperand const *ret = new Operand<double>(value, Double, 15);
+	IOperand const *ret = new Operand<double>(value, Double, 15, this);
 	return (ret);
 }

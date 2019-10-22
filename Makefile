@@ -13,7 +13,6 @@
 NAME	= avm
 
 SRC		=   src/main.cpp \
-			src/Operand.cpp \
 			src/Factory.cpp
 
 OBJ		= $(patsubst src/%.cpp,obj/%.o,$(SRC))
