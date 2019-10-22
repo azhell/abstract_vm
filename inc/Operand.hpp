@@ -12,15 +12,17 @@
 
 #include "IOperand.hpp"
 
+#include <iostream>
+
 template <typename T>
 class Operand : public IOperand
 {
 private:
-	T _value;
 	eOperandType _type;
 	int _precision;
 
 public:
+	T _value;
 	Operand()
 	{
 		return;
@@ -44,7 +46,7 @@ public:
 
 	int getPrecision(void) const
 	{
-		return (this->_type);
+		return (this->_precision);
 	}
 
 	std::string const &toString(void) const

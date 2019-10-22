@@ -14,19 +14,25 @@
 #include "IOperand.hpp"
 #include "Operand.hpp"
 #include <vector>
+#include <sstream>
 
 
 int main(int ac, char **av)
 {
 //	int32_t number = Int8;
-	std::vector<IOperand> vec;
+	std::vector<IOperand const*> vec;
 	Factory factory;
+	IOperand const *ed;
 
-	IOperand *test = new Operand<int8_t>;
 
-<<<<<<< HEAD
-	//vec.pop_back();
-=======
->>>>>>> 61a8ffe1b67c471c3a8278fc74ee22ac25385f64
+	IOperand const *test = factory.createOperand(Int8, "22");
+	IOperand const *test2 = factory.createOperand(Int8, "22");
+	vec.push_back(test);
+	vec.push_back(test2);
+	ed = *(vec.rend());
+
+
+
+	system("leaks avm");
 	return (0);
 }

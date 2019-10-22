@@ -14,11 +14,13 @@
 #include "Operand.hpp"
 #include "IOperand.hpp"
 
-
-
 Factory::Factory()
 {
-	func[0] = Factory::createInt8;
+	ListFunc.at(0) = &Factory::createInt8;
+	ListFunc.at(1) = &Factory::createInt16;
+	ListFunc.at(2) = &Factory::createInt32;
+	ListFunc.at(3) = &Factory::createFloat;
+	ListFunc.at(4) = &Factory::createDouble;
 	return;
 }
 
@@ -27,28 +29,11 @@ Factory::~Factory()
 	return;
 }
 
-IOperand const Factory::*createOperand(eOperandType type, std::string const &value)
+IOperand const *Factory::createOperand(eOperandType type, std::string const &value) const
 {
-	switch (type)
-	{
-	case 1:
-
-		break;
-	case 2:
-		/* code */
-		break;
-	case 3:
-		/* code */
-		break;
-	case 4:
-		/* code */
-		break;
-	case 5:
-		/* code */
-		break;
-	default:
-		break;
-	}
+	IOperand const *(Factory::*func)(std::string const &)const;
+	func = ListFunc[type];
+	return ((*this.*func)(value));
 }
 
 IOperand const *Factory::createInt8(std::string const &value) const
@@ -59,24 +44,24 @@ IOperand const *Factory::createInt8(std::string const &value) const
 
 IOperand const *Factory::createInt16(std::string const &value) const
 {
-	IOperand const *ret = new Operand<int16_t>(value, Int16, 1);
+	IOperand const *ret = new Operand<int16_t>(value, Int16, 0);
 	return (ret);
 }
 
 IOperand const *Factory::createInt32(std::string const &value) const
 {
-	IOperand const *ret = new Operand<int32_t>(value, Int32, 2);
+	IOperand const *ret = new Operand<int32_t>(value, Int32, 0);
 	return (ret);
 }
 
 IOperand const *Factory::createFloat(std::string const &value) const
 {
-	IOperand const *ret = new Operand<float>(value, Float, 3);
+	IOperand const *ret = new Operand<float>(value, Float, 7);
 	return (ret);
 }
 
 IOperand const *Factory::createDouble(std::string const &value) const
 {
-	IOperand const *ret = new Operand<double>(value, Double, 4);
+	IOperand const *ret = new Operand<double>(value, Double, 15);
 	return (ret);
 }

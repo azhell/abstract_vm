@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include "IOperand.hpp"
+#include <map>
+#include <array>
 
 class Factory
 {
@@ -25,8 +27,10 @@ private:
 	IOperand const *createDouble(std::string const &value) const;
 	Factory operator=(Factory const &obj);
 	Factory(Factory const &);
+
 public:
 	Factory();
 	~Factory();
 	IOperand const *createOperand(eOperandType type, std::string const &value) const;
+	std::array<IOperand const *(Factory::*)(std::string const &)const, 5> ListFunc;
 };
