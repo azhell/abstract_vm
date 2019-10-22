@@ -17,20 +17,18 @@
 #include <sstream>
 
 
-int main(int ac, char **av)
+int main()
 {
-//	int32_t number = Int8;
 	std::vector<IOperand const*> vec;
 	Factory factory;
 	IOperand const *ed;
 
 
 	IOperand const *test = factory.createOperand(Int8, "22");
-	IOperand const *test2 = factory.createOperand(Int8, "22");
+	IOperand const *test2 = factory.createOperand(Int8, "2222");
 	vec.push_back(test);
 	vec.push_back(test2);
 	ed = *(vec.rend());
-
 
 
 	system("leaks avm");
