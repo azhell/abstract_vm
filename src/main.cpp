@@ -19,10 +19,12 @@
 #include "Operand.hpp"
 #include <vector>
 #include <sstream>
+#include <iostream>
+#include <regex>
 
-int main()
+int main(int ac, char **av)
 {
-	std::vector<IOperand const *> vec;
+	/* std::vector<IOperand const *> vec;
 	Factory factory;
 	IOperand const *ed;
 
@@ -40,6 +42,12 @@ int main()
 	{
 		ed = *i;
 		std::cout << ed->toString() << std::endl;
+	} */
+
+	if (ac == 2)
+	{
+
+
 	}
 
 	system("leaks avm");
