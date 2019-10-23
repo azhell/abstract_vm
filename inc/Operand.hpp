@@ -15,6 +15,8 @@
 #include <float.h>
 #include <sstream>
 #include <exception>
+#include <iomanip>
+#include <cmath>
 
 template <typename T>
 class Operand : public IOperand
@@ -69,7 +71,7 @@ public:
 					throw Operand::overExcep("Overflow | Underflow");
 				this->_value = static_cast<T>(val);
 				std::stringstream ss;
-				ss << val;
+				ss << std::setprecision(_precision) << val;
 				this->_str = ss.str();
 			}
 		}
@@ -105,44 +107,182 @@ public:
 	{
 		try
 		{
+			std::stringstream ss;
+			eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
+			int pers = (_precision < rhs.getPrecision()) ? rhs.getPrecision() : _precision;
 			if (_type < 3 && rhs.getType() < 3)
 			{
 				int64_t op1 = std::strtoll(_str.c_str(), nullptr, 10);
 				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
 				int64_t res = op1 + op2;
-				eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
-				int pers = 0;
 				if (overFlow(res, type))
 					throw Operand::overExcep("Overflow | Underlow");
-				std::stringstream ss;
 				ss << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+			else
+			{
+				long double op1 = std::strtold(_str.c_str(), nullptr);
+				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
+				long double res = op1 + op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << std::setprecision(pers) << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
 		catch (const std::exception &e)
 		{
-			std::cerr << e.what() << '\n';
+			e.what();
 		}
 		return (0);
 	}
 
 	IOperand const *operator-(IOperand const &rhs) const
 	{
+		try
+		{
+			std::stringstream ss;
+			eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
+			int pers = (_precision < rhs.getPrecision()) ? rhs.getPrecision() : _precision;
+			if (_type < 3 && rhs.getType() < 3)
+			{
+				int64_t op1 = std::strtoll(_str.c_str(), nullptr, 10);
+				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
+				int64_t res = op1 - op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+			else
+			{
+				long double op1 = std::strtold(_str.c_str(), nullptr);
+				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
+				long double res = op1 - op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << std::setprecision(pers) << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+		}
+		catch (const std::exception &e)
+		{
+			e.what();
+		}
 		return (0);
 	}
 
 	IOperand const *operator*(IOperand const &rhs) const
 	{
+		try
+		{
+			std::stringstream ss;
+			eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
+			int pers = (_precision < rhs.getPrecision()) ? rhs.getPrecision() : _precision;
+			if (_type < 3 && rhs.getType() < 3)
+			{
+				int64_t op1 = std::strtoll(_str.c_str(), nullptr, 10);
+				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
+				int64_t res = op1 * op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+			else
+			{
+				long double op1 = std::strtold(_str.c_str(), nullptr);
+				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
+				long double res = op1 * op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << std::setprecision(pers) << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+		}
+		catch (const std::exception &e)
+		{
+			e.what();
+		}
 		return (0);
 	}
 
 	IOperand const *operator/(IOperand const &rhs) const
 	{
+		try
+		{
+			std::stringstream ss;
+			eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
+			int pers = (_precision < rhs.getPrecision()) ? rhs.getPrecision() : _precision;
+			if (_type < 3 && rhs.getType() < 3)
+			{
+				int64_t op1 = std::strtoll(_str.c_str(), nullptr, 10);
+				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
+				if (op2 == 0)
+					throw Operand::overExcep("Division by zero");
+				int64_t res = op1 / op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+			else
+			{
+				long double op1 = std::strtold(_str.c_str(), nullptr);
+				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
+				if (op2 == 0.0)
+					throw Operand::overExcep("Division by zero");
+				long double res = op1 / op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << std::setprecision(pers) << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+		}
+		catch (const std::exception &e)
+		{
+			e.what();
+		}
 		return (0);
 	}
 
 	IOperand const *operator%(IOperand const &rhs) const
 	{
+		try
+		{
+			std::stringstream ss;
+			eOperandType type = (_type < rhs.getType()) ? rhs.getType() : _type;
+			int pers = (_precision < rhs.getPrecision()) ? rhs.getPrecision() : _precision;
+			if (_type < 3 && rhs.getType() < 3)
+			{
+				int64_t op1 = std::strtoll(_str.c_str(), nullptr, 10);
+				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
+				if (op2 == 0)
+					throw Operand::overExcep("Division by zero");
+				int64_t res = op1 % op2;
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+			else
+			{
+				long double op1 = std::strtold(_str.c_str(), nullptr);
+				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
+				if (op2 == 0.0)
+					throw Operand::overExcep("Division by zero");
+				long double res = std::fmod(op1, op2);
+				if (overFlow(res, type))
+					throw Operand::overExcep("Overflow | Underlow");
+				ss << std::setprecision(pers) << res;
+				return (_fact->createOperand(type, ss.str()));
+			}
+		}
+		catch (const std::exception &e)
+		{
+			e.what();
+		}
 		return (0);
 	}
 	bool overFlow(int64_t val, eOperandType type) const
@@ -157,6 +297,7 @@ public:
 		case 2:
 			return (val < INT32_MIN || val > INT32_MAX);
 		}
+		return (false);
 	}
 	bool overFlow(long double val, eOperandType type) const
 	{
@@ -168,5 +309,6 @@ public:
 		case 4:
 			return (val < DBL_MIN || val > DBL_MAX);
 		}
+		return (false);
 	}
 };

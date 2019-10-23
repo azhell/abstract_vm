@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 //
-//			COPLIEN
+//			COPLIEN #############################################################
 //
 
 #include "Factory.hpp"
@@ -20,7 +20,6 @@
 #include <vector>
 #include <sstream>
 
-
 int main()
 {
 	std::vector<IOperand const *> vec;
@@ -28,16 +27,16 @@ int main()
 	IOperand const *ed;
 
 	{
-		IOperand const *test = factory.createOperand(Int8, "22");
-		IOperand const *test2 = factory.createOperand(Int16, "140");
+		IOperand const *test = factory.createOperand(Int16, "22");
+		IOperand const *test2 = factory.createOperand(Double, "10.222");
 		vec.push_back(test);
 		vec.push_back(test2);
-		IOperand const *test3 = *test + *test2;
+		IOperand const *test3 = *test % *test2;
 		vec.pop_back();
 		vec.pop_back();
 		vec.push_back(test3);
 	}
-	for (std::vector<IOperand const*>::reverse_iterator i = vec.rbegin(); i != vec.rend(); ++i)
+	for (std::vector<IOperand const *>::reverse_iterator i = vec.rbegin(); i != vec.rend(); ++i)
 	{
 		ed = *i;
 		std::cout << ed->toString() << std::endl;
