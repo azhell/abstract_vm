@@ -1,0 +1,4 @@
+push int8(120)
+push int32(12000)
+pop
+dump

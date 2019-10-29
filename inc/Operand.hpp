@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
+
+#include "Ecxeption.hpp"
 #include <iostream>
 #include <limits.h>
 #include <float.h>
 #include <sstream>
-#include <exception>
 #include <iomanip>
 #include <cmath>
 
@@ -34,17 +36,17 @@ public:
 		return;
 	}
 
-	class overExcep : std::exception
+	class overExcep : public Exception
 	{
 	private:
-		std::string _msg;
+		std::string _error;
 
 	public:
-		overExcep(const std::string &msg) : _msg(msg) {}
+		overExcep(const std::string &error) : _error(error) {}
 		virtual ~overExcep() throw() {}
 		virtual const char *what() const throw()
 		{
-			return _msg.c_str();
+			return _error.c_str();
 		}
 	};
 
@@ -58,7 +60,7 @@ public:
 			{
 				int64_t val = std::strtoll(arg.c_str(), nullptr, 10);
 				if (overFlow(val, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Underflow");
 				std::stringstream ss;
 				this->_value = static_cast<T>(val);
 				ss << val;
@@ -116,7 +118,7 @@ public:
 				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
 				int64_t res = op1 + op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Underflow");
 				ss << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
@@ -126,12 +128,12 @@ public:
 				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
 				long double res = op1 + op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Underflow");
 				ss << std::setprecision(pers) << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
-		catch (const std::exception &e)
+		catch (const std::out_of_range &e)
 		{
 			e.what();
 		}
@@ -151,7 +153,7 @@ public:
 				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
 				int64_t res = op1 - op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Undefrlow");
 				ss << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
@@ -161,12 +163,12 @@ public:
 				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
 				long double res = op1 - op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Undefrlow");
 				ss << std::setprecision(pers) << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
-		catch (const std::exception &e)
+		catch (const std::out_of_range &e)
 		{
 			e.what();
 		}
@@ -186,7 +188,7 @@ public:
 				int64_t op2 = std::strtoll(rhs.toString().c_str(), nullptr, 10);
 				int64_t res = op1 * op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Underflow");
 				ss << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
@@ -196,12 +198,12 @@ public:
 				long double op2 = std::strtold(rhs.toString().c_str(), nullptr);
 				long double res = op1 * op2;
 				if (overFlow(res, type))
-					throw Operand::overExcep("Overflow | Underlow");
+					throw Operand::overExcep("Overflow | Underflow");
 				ss << std::setprecision(pers) << res;
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
-		catch (const std::exception &e)
+		catch (const std::out_of_range &e)
 		{
 			e.what();
 		}
@@ -240,7 +242,7 @@ public:
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
-		catch (const std::exception &e)
+		catch (const std::out_of_range &e)
 		{
 			e.what();
 		}
@@ -279,7 +281,7 @@ public:
 				return (_fact->createOperand(type, ss.str()));
 			}
 		}
-		catch (const std::exception &e)
+		catch (const std::out_of_range &e)
 		{
 			e.what();
 		}

@@ -12,22 +12,17 @@
 
 //
 //			COPLIEN #############################################################
+//			LEX_ECXEPT #########
 //
 
-#include "Factory.hpp"
-#include "IOperand.hpp"
-#include "Operand.hpp"
-#include <vector>
-#include <sstream>
-#include <iostream>
-#include <regex>
+#include "Flex.hpp"
+#include "Ecxeption.hpp"
 
 int main(int ac, char **av)
 {
 	/* std::vector<IOperand const *> vec;
 	Factory factory;
 	IOperand const *ed;
-
 	{
 		IOperand const *test = factory.createOperand(Int16, "22");
 		IOperand const *test2 = factory.createOperand(Double, "10.222");
@@ -43,13 +38,28 @@ int main(int ac, char **av)
 		ed = *i;
 		std::cout << ed->toString() << std::endl;
 	} */
-
-	if (ac == 2)
+	if (ac < 2)
 	{
-
+		Flex flex;
+		flex.createTokens();
+		std::vector<Token> &tok = flex.getTokenVec();
+	}
+	else if (ac == 2)
+	{
+		Flex flex(av[1]);
+		flex.createTokens();
+		std::vector<Token> &tok = flex.getTokenVec();
+		for (std::vector<Token>::iterator i = tok.begin(); i != tok.end(); ++i)
+		{
+			if (i->token != token_eol)
+				std::cout << i->token << " " + i->value << "\n";
+		}
 
 	}
-
+	else
+	{
+		std::cout << "Usage: avm  || avm [file command.avm]" << std::endl;
+	}
 	system("leaks avm");
 	return (0);
 }

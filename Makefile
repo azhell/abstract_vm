@@ -13,7 +13,9 @@
 NAME	= avm
 
 SRC		=   src/main.cpp \
-			src/Factory.cpp
+			src/Factory.cpp \
+			src/Flex.cpp \
+			src/flexLexer.cpp
 
 OBJ		= $(patsubst src/%.cpp,obj/%.o,$(SRC))
 
@@ -23,10 +25,9 @@ INC		= -Iinc
 
 .SILENT:
 
-all: $(NAME)
+all: flex $(NAME)
 
 $(NAME): $(OBJ)
-
 	clang++ $(SRC) -o $(NAME) $(INC)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create $(NAME)"
 
@@ -35,7 +36,10 @@ obj/%.o: src/%.cpp
 	clang++ $(FLAG) -c $< -o $@ $(INC)
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"
 
+flex:
+	flex -o src/flexLexer.cpp -c++ src/flexLexer.l
 clean:
+	rm -rf src/flexLexer.cpp
 	/bin/rm -rf obj/
 	printf '\033[31m[ ✔ ] %s\n\033[0m' "Clean"
 
