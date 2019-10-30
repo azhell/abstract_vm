@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:09:38 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/21 19:52:01 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 15:07:59 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,9 +309,9 @@ public:
 		switch (sw)
 		{
 		case 3:
-			return (val < FLT_MIN || val > FLT_MAX);
+			return (val < -FLT_MAX || val > FLT_MAX);
 		case 4:
-			return (val < DBL_MIN || val > DBL_MAX);
+			return (val < -DBL_MAX || val > DBL_MAX);
 		}
 		return (false);
 	}

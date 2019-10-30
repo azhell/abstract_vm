@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:48:25 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/21 20:02:01 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 14:32:17 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ IOperand const *Factory::createFloat(std::string const &value) const
 
 IOperand const *Factory::createDouble(std::string const &value) const
 {
-	IOperand const *ret = new Operand<double>(value, Double, 15, this);
+	IOperand const *ret = new Operand<double>(value, Double, 14, this);
 	return (ret);
 }

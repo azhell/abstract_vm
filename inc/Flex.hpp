@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Flex.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 13:29:02 by yalytvyn          #+#    #+#             */
+/*   Updated: 2019/10/30 13:49:02 by yalytvyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #pragma once
 
@@ -47,6 +58,7 @@ private:
 	/* data */
 	FlexLexer *lexer;
 	int flagError;
+	int	exitError;
 	std::vector<Token> _command;
 	std::ifstream file;
 	std::ofstream bug;

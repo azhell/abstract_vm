@@ -1,10 +1,14 @@
-//
-//
-//
-//
-//
-//
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Parser.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 13:28:37 by yalytvyn          #+#    #+#             */
+/*   Updated: 2019/10/30 15:05:28 by yalytvyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "Parser.hpp"
 
@@ -27,6 +31,11 @@ Parser::Parser(std::vector<Token> &vec) : _vec(vec)
 
 Parser::~Parser()
 {
+	for (std::vector<IOperand const *>::iterator  i = stack.begin(); i != stack.end(); ++i)
+	{
+		IOperand const *del = *i;
+		delete del;
+	}
 	return;
 }
 
@@ -52,8 +61,12 @@ void Parser::pop(std::vector<Token>::iterator &it)
 		throw Parser::parsExcep("Illegal command pop. Empty stack");
 	else
 	{
+		std::vector<IOperand const *>::reverse_iterator it = stack.rbegin();
+		IOperand const *del = *it;
+		delete del;
 		stack.pop_back();
 	}
+	(void)it;
 }
 
 void Parser::dump(std::vector<Token>::iterator &it)
@@ -64,41 +77,120 @@ void Parser::dump(std::vector<Token>::iterator &it)
 		ed = *i;
 		std::cout << ed->toString() << "\n";
 	}
+	(void)it;
 }
 
 void Parser::assert(std::vector<Token>::iterator &it)
 {
 	if (stack.size() == 0)
 		throw Parser::parsExcep("Illegal command assert. Empty stack");
-	else
-		stack.pop_back();
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *del = *d;
+	std::vector<Token>::iterator check = it + 1;
+	if ((check->token - token_int8) != del->getType())
+		throw Parser::parsExcep("Illegal command assert. Error type");
+	delete del;
+	stack.pop_back();
 	std::vector<Token>::iterator i = it + 1;
 	stack.push_back(factory.createOperand(
 		static_cast<eOperandType>(i->token - token_int8), i->value));
+	(void)it;
 }
 void Parser::add(std::vector<Token>::iterator &it)
 {
+	if (stack.size() < 2)
+		throw Parser::parsExcep("Illegal command add. Not found two operand");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	IOperand const *op2 = *(d + 1);
+	IOperand const *op3 = *op1 + *op2;
+	delete op1;
+	stack.pop_back();
+	delete op2;
+	stack.pop_back();
+	stack.push_back(op3);
+	(void)it;
 }
 void Parser::sub(std::vector<Token>::iterator &it)
 {
+	if (stack.size() < 2)
+		throw Parser::parsExcep("Illegal command add. Not found two operand");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	IOperand const *op2 = *(d + 1);
+	IOperand const *op3 = *op1 - *op2;
+	delete op1;
+	stack.pop_back();
+	delete op2;
+	stack.pop_back();
+	stack.push_back(op3);
+	(void)it;
 }
 void Parser::mul(std::vector<Token>::iterator &it)
 {
+	if (stack.size() < 2)
+		throw Parser::parsExcep("Illegal command add. Not found two operand");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	IOperand const *op2 = *(d + 1);
+	IOperand const *op3 = *op1 * *op2;
+	delete op1;
+	stack.pop_back();
+	delete op2;
+	stack.pop_back();
+	stack.push_back(op3);
+	(void)it;
+	(void)it;
 }
 void Parser::div(std::vector<Token>::iterator &it)
 {
+	if (stack.size() < 2)
+		throw Parser::parsExcep("Illegal command add. Not found two operand");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	IOperand const *op2 = *(d + 1);
+	IOperand const *op3 = *op1 / *op2;
+	delete op1;
+	stack.pop_back();
+	delete op2;
+	stack.pop_back();
+	stack.push_back(op3);
+	(void)it;
+	(void)it;
 }
 void Parser::mod(std::vector<Token>::iterator &it)
 {
+	if (stack.size() < 2)
+		throw Parser::parsExcep("Illegal command add. Not found two operand");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	IOperand const *op2 = *(d + 1);
+	IOperand const *op3 = *op1 % *op2;
+	delete op1;
+	stack.pop_back();
+	delete op2;
+	stack.pop_back();
+	stack.push_back(op3);
+	(void)it;
+	(void)it;
 }
 void Parser::print(std::vector<Token>::iterator &it)
 {
+	(void)it;
 }
 void Parser::e_exit(std::vector<Token>::iterator &it)
 {
+	for (std::vector<IOperand const *>::iterator i = stack.begin(); i != stack.end(); ++i)
+	{
+		IOperand const *del = *i;
+		delete del;
+	}
+	(void)it;
+	system("leaks avm");
 	exit(0);
 }
 
 void Parser::end(std::vector<Token>::iterator &it)
 {
+	(void)it;
 }

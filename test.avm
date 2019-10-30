@@ -1,5 +1,5 @@
-push int32(42)
-push int32(33)
-push float(44.55)
-assert int16(22)
+push int16(500)
+push double(600.124122)
+mod
 dump
+exit
