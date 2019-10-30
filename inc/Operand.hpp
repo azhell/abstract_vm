@@ -13,6 +13,8 @@
 #pragma once
 
 #include "Ecxeption.hpp"
+#include "IOperand.hpp"
+#include "Factory.hpp"
 #include <iostream>
 #include <limits.h>
 #include <float.h>

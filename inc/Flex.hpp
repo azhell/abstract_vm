@@ -1,9 +1,3 @@
-//
-//
-//
-//
-//
-//
 
 #pragma once
 
@@ -15,29 +9,30 @@
 #include <fstream>
 #include <istream>
 #include <vector>
+#include "Ecxeption.hpp"
 
 enum Tok
 {
 	token_end = 0,
-	token_error = 1,
-	token_push = 2,
-	token_pop = 3,
-	token_dump = 4,
-	token_assert = 5,
-	token_add = 6,
-	token_sub = 7,
-	token_mul = 8,
-	token_div = 9,
-	token_mod = 10,
-	token_print = 11,
-	token_exit = 12,
-	token_comment = 13,
-	token_int8 = 14,
-	token_int16 = 15,
-	token_int32 = 16,
-	token_float = 17,
-	token_double = 18,
-	token_eol = 19
+	token_error = 20,
+	token_push = 1,
+	token_pop = 2,
+	token_dump = 3,
+	token_assert = 4,
+	token_add = 5,
+	token_sub = 6,
+	token_mul = 7,
+	token_div = 8,
+	token_mod = 9,
+	token_print = 10,
+	token_exit = 11,
+	token_comment = 12,
+	token_int8 = 13,
+	token_int16 = 14,
+	token_int32 = 15,
+	token_float = 16,
+	token_double = 17,
+	token_eol = 18
 };
 
 struct Token
@@ -51,7 +46,7 @@ class Flex
 private:
 	/* data */
 	FlexLexer *lexer;
-	bool flagError = true;
+	int flagError;
 	std::vector<Token> _command;
 	std::ifstream file;
 	std::ofstream bug;
@@ -61,7 +56,20 @@ public:
 	Flex();
 	Flex(char *file);
 	void createTokens();
-	bool scanError();
+	int scanError();
 	std::vector<Token> &getTokenVec();
+	class flexExcep : public Exception
+	{
+	private:
+		std::string _error;
+
+	public:
+		flexExcep(const std::string &error) : _error(error) {}
+		virtual ~flexExcep() throw() {}
+		virtual const char *what() const throw()
+		{
+			return _error.c_str();
+		}
+	};
 	~Flex();
 };

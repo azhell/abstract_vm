@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 //
-//			COPLIEN #############################################################
-//			LEX_ECXEPT #########
+//TODO		COPLIEN #############################################################
+//TODO		LEX_ECXEPT #########
 //
 
 #include "Flex.hpp"
+#include "Parser.hpp"
 #include "Ecxeption.hpp"
 
 int main(int ac, char **av)
@@ -38,28 +39,39 @@ int main(int ac, char **av)
 		ed = *i;
 		std::cout << ed->toString() << std::endl;
 	} */
-	if (ac < 2)
+	try
 	{
-		Flex flex;
-		flex.createTokens();
-		std::vector<Token> &tok = flex.getTokenVec();
-	}
-	else if (ac == 2)
-	{
-		Flex flex(av[1]);
-		flex.createTokens();
-		std::vector<Token> &tok = flex.getTokenVec();
-		for (std::vector<Token>::iterator i = tok.begin(); i != tok.end(); ++i)
-		{
-			if (i->token != token_eol)
-				std::cout << i->token << " " + i->value << "\n";
-		}
 
+		if (ac < 2)
+		{
+			Flex flex;
+			flex.createTokens();
+			std::vector<Token> &tok = flex.getTokenVec();
+			if (!flex.scanError())
+			{
+			}
+		}
+		else if (ac == 2)
+		{
+			Flex flex(av[1]);
+			flex.createTokens();
+			std::vector<Token> &tok = flex.getTokenVec();
+			if (!flex.scanError())
+			{
+				Parser parse(flex.getTokenVec());
+				parse.start();
+			}
+		}
+		else
+		{
+			std::cout << "Usage: avm  || avm [file command.avm]" << std::endl;
+		}
 	}
-	else
+	catch (const Exception &e)
 	{
-		std::cout << "Usage: avm  || avm [file command.avm]" << std::endl;
+		std::cerr << e.what() << '\n';
 	}
+
 	system("leaks avm");
 	return (0);
 }

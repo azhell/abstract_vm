@@ -15,6 +15,7 @@ NAME	= avm
 SRC		=   src/main.cpp \
 			src/Factory.cpp \
 			src/Flex.cpp \
+			src/Parser.cpp \
 			src/flexLexer.cpp
 
 OBJ		= $(patsubst src/%.cpp,obj/%.o,$(SRC))

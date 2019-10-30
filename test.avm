@@ -1,4 +1,5 @@
-push int8(120)
-push int32(12000)
-pop
+push int32(42)
+push int32(33)
+push float(44.55)
+assert int16(22)
 dump
