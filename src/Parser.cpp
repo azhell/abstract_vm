@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:28:37 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 15:05:28 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:24:57 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,8 @@ void Parser::assert(std::vector<Token>::iterator &it)
 	std::vector<Token>::iterator check = it + 1;
 	if ((check->token - token_int8) != del->getType())
 		throw Parser::parsExcep("Illegal command assert. Error type");
-	delete del;
-	stack.pop_back();
-	std::vector<Token>::iterator i = it + 1;
-	stack.push_back(factory.createOperand(
-		static_cast<eOperandType>(i->token - token_int8), i->value));
+	if (del->toString() != check->value)
+		throw Parser::parsExcep("Assert: different value");
 	(void)it;
 }
 void Parser::add(std::vector<Token>::iterator &it)
@@ -101,8 +98,8 @@ void Parser::add(std::vector<Token>::iterator &it)
 	if (stack.size() < 2)
 		throw Parser::parsExcep("Illegal command add. Not found two operand");
 	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
-	IOperand const *op1 = *d;
-	IOperand const *op2 = *(d + 1);
+	IOperand const *op2 = *d;
+	IOperand const *op1 = *(d + 1);
 	IOperand const *op3 = *op1 + *op2;
 	delete op1;
 	stack.pop_back();
@@ -114,10 +111,10 @@ void Parser::add(std::vector<Token>::iterator &it)
 void Parser::sub(std::vector<Token>::iterator &it)
 {
 	if (stack.size() < 2)
-		throw Parser::parsExcep("Illegal command add. Not found two operand");
+		throw Parser::parsExcep("Illegal command sub. Not found two operand");
 	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
-	IOperand const *op1 = *d;
-	IOperand const *op2 = *(d + 1);
+	IOperand const *op2 = *d;
+	IOperand const *op1 = *(d + 1);
 	IOperand const *op3 = *op1 - *op2;
 	delete op1;
 	stack.pop_back();
@@ -129,10 +126,10 @@ void Parser::sub(std::vector<Token>::iterator &it)
 void Parser::mul(std::vector<Token>::iterator &it)
 {
 	if (stack.size() < 2)
-		throw Parser::parsExcep("Illegal command add. Not found two operand");
+		throw Parser::parsExcep("Illegal command mul. Not found two operand");
 	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
-	IOperand const *op1 = *d;
-	IOperand const *op2 = *(d + 1);
+	IOperand const *op2 = *d;
+	IOperand const *op1 = *(d + 1);
 	IOperand const *op3 = *op1 * *op2;
 	delete op1;
 	stack.pop_back();
@@ -145,10 +142,10 @@ void Parser::mul(std::vector<Token>::iterator &it)
 void Parser::div(std::vector<Token>::iterator &it)
 {
 	if (stack.size() < 2)
-		throw Parser::parsExcep("Illegal command add. Not found two operand");
+		throw Parser::parsExcep("Illegal command div. Not found two operand");
 	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
-	IOperand const *op1 = *d;
-	IOperand const *op2 = *(d + 1);
+	IOperand const *op2 = *d;
+	IOperand const *op1 = *(d + 1);
 	IOperand const *op3 = *op1 / *op2;
 	delete op1;
 	stack.pop_back();
@@ -161,10 +158,10 @@ void Parser::div(std::vector<Token>::iterator &it)
 void Parser::mod(std::vector<Token>::iterator &it)
 {
 	if (stack.size() < 2)
-		throw Parser::parsExcep("Illegal command add. Not found two operand");
+		throw Parser::parsExcep("Illegal command mod. Not found two operand");
 	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
-	IOperand const *op1 = *d;
-	IOperand const *op2 = *(d + 1);
+	IOperand const *op2 = *d;
+	IOperand const *op1 = *(d + 1);
 	IOperand const *op3 = *op1 % *op2;
 	delete op1;
 	stack.pop_back();
@@ -176,6 +173,14 @@ void Parser::mod(std::vector<Token>::iterator &it)
 }
 void Parser::print(std::vector<Token>::iterator &it)
 {
+	if (stack.size() == 0)
+		throw Parser::parsExcep("Illegal command print. Empty stack");
+	std::vector<IOperand const *>::reverse_iterator d = stack.rbegin();
+	IOperand const *op1 = *d;
+	if (op1->getType() != Int8)
+		throw Parser::parsExcep("Illegal command print. Object not int8");
+	char ch = static_cast<char>(std::atoi(op1->toString().c_str()));
+	std::cout << ch << std::endl;;
 	(void)it;
 }
 void Parser::e_exit(std::vector<Token>::iterator &it)
@@ -186,7 +191,6 @@ void Parser::e_exit(std::vector<Token>::iterator &it)
 		delete del;
 	}
 	(void)it;
-	system("leaks avm");
 	exit(0);
 }
 

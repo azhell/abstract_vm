@@ -6,13 +6,9 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 10:55:23 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 15:10:49 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:26:24 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//
-//TODO		COPLIEN #############################################################
-//
 
 #include "Flex.hpp"
 #include "Parser.hpp"
@@ -52,6 +48,5 @@ int main(int ac, char **av)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	system("leaks avm");
 	return (0);
 }

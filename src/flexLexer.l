@@ -11,6 +11,9 @@ int yyFlexLexer::yywrap() {return 1;}
 %option noinput
 %%
 
+
+
+
 " int8("		BEGIN(N_INT8);
 " int16("		BEGIN(N_INT16);
 " int32("		BEGIN(N_INT32);
@@ -24,7 +27,7 @@ int yyFlexLexer::yywrap() {return 1;}
 <N_DOUBLE>[-+]?[0-9]*\.?[0-9]*[f]?([eE][+-]?[0-9]+)?	{BEGIN(LAST); return token_double;}
 
 <LAST>")" BEGIN(INITIAL);
-
+" "
 "exit"	{return token_exit;}
 "push"	{return token_push;}
 "pop"	{return token_pop;}

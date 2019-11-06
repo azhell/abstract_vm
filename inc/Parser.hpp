@@ -6,23 +6,9 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:29:17 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 14:12:05 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:25:24 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//	token_end = 0,
-//	token_error = 1,
-//	token_push = 2,
-//	token_pop = 3,
-//	token_dump = 4,
-//	token_assert = 5,
-//	token_add = 6,
-//	token_sub = 7,
-//	token_mul = 8,
-//	token_div = 9,
-//	token_mod = 10,
-//	token_print = 11,
-//	token_exit = 12,
 
 #pragma once
 #include "IOperand.hpp"
@@ -35,6 +21,8 @@
 class Parser
 {
 private:
+	Parser operator=(Parser const &obj);
+	Parser(Parser const &);
 	std::vector<Token> _vec;
 
 public:
@@ -58,6 +46,8 @@ public:
 		std::string _error;
 
 	public:
+		parsExcep(const parsExcep &);
+		const parsExcep &operator=(const parsExcep &);
 		parsExcep(const std::string &error) : _error(error) {}
 		virtual ~parsExcep() throw() {}
 		virtual const char *what() const throw()

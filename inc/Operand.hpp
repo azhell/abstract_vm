@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:09:38 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 15:07:59 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:21:24 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ private:
 	T _value;
 	std::string _str;
 	const Factory *_fact;
+	Operand operator=(Operand const &obj);
+	Operand(Operand const &);
 
 public:
 	Operand()

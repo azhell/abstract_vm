@@ -1,5 +1,5 @@
-push int16(500)
-push double(600.124122)
+push float(32.222)
+push double(10.12322123)
 mod
 dump
 exit

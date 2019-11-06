@@ -6,7 +6,7 @@
 #    By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 10:49:31 by yalytvyn          #+#    #+#              #
-#    Updated: 2019/10/21 19:01:50 by yalytvyn         ###   ########.fr        #
+#    Updated: 2019/10/30 17:56:40 by yalytvyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC		=   src/main.cpp \
 
 OBJ		= $(patsubst src/%.cpp,obj/%.o,$(SRC))
 
-FLAG	= -Wall -Wextra -Wunused-parameter#-Werror
+FLAG	= -Wall -Wextra -Werror
 
 INC		= -Iinc
 
@@ -29,7 +29,7 @@ INC		= -Iinc
 all: flex $(NAME)
 
 $(NAME): $(OBJ)
-	clang++ $(SRC) -o $(NAME) $(INC)
+	clang++ $(FLAG) $(SRC) -o $(NAME) $(INC)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create $(NAME)"
 
 obj/%.o: src/%.cpp
@@ -39,6 +39,7 @@ obj/%.o: src/%.cpp
 
 flex:
 	flex -o src/flexLexer.cpp -c++ src/flexLexer.l
+
 clean:
 	rm -rf src/flexLexer.cpp
 	/bin/rm -rf obj/

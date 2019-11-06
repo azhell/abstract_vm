@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:29:02 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 13:49:02 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:25:32 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ private:
 	/* data */
 	FlexLexer *lexer;
 	int flagError;
-	int	exitError;
+	int exitError;
 	std::vector<Token> _command;
 	std::ifstream file;
 	std::ofstream bug;
 	std::vector<Token> tokenVec;
+	Flex operator=(Flex const &obj);
+	Flex(Flex const &);
 
 public:
 	Flex();
@@ -70,12 +72,15 @@ public:
 	void createTokens();
 	int scanError();
 	std::vector<Token> &getTokenVec();
+
 	class flexExcep : public Exception
 	{
 	private:
 		std::string _error;
 
 	public:
+		flexExcep(const flexExcep &);
+		const flexExcep &operator=(const flexExcep &);
 		flexExcep(const std::string &error) : _error(error) {}
 		virtual ~flexExcep() throw() {}
 		virtual const char *what() const throw()

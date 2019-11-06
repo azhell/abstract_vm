@@ -6,7 +6,7 @@
 /*   By: yalytvyn <yalytvyn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:29:37 by yalytvyn          #+#    #+#             */
-/*   Updated: 2019/10/30 15:07:57 by yalytvyn         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:28:35 by yalytvyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 Flex::Flex() : lexer(new yyFlexLexer),
 			   flagError(0),
-			   exitError(10)
+			   exitError(1)
 {
 }
 
@@ -56,8 +56,9 @@ int Flex::scanError()
 	{
 		if (i->token == token_error)
 		{
-			std::cout << "Syntax error in " << line << " line. Exit.\n";
-			flagError = 1;
+			std::stringstream ss;
+			ss << "Syntax error in " << line << " line. Exit";
+			throw Flex::flexExcep(ss.str());
 			break;
 		}
 		else if (i->token == token_eol)
@@ -67,9 +68,9 @@ int Flex::scanError()
 			check = i + 1;
 			if (check->token < 13 || check->token > 17)
 			{
-				std::cout << "Syntax error in " << line << " line. Exit.\n";
-				flagError = 1;
-				break;
+				std::stringstream ss;
+				ss << "Logic error in " << line << " line. Exit";
+				throw Flex::flexExcep(ss.str());
 			}
 		}
 		else if (i->token == 11)
